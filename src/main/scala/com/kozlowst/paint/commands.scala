@@ -6,10 +6,5 @@ object commands {
   def drawShape(f:(Int, Int) => Boolean)(): Unit = drawing.draw(f)
   def revert()(): Unit = drawing.revert()
   def redo()(): Unit = drawing.redo()
-  def clear()(): Unit = {
-    drawing.functions.clear()
-    drawing.history.clear()
-    drawing.width = 0
-    drawing.height = 0
-  }
+  def clear()(): Unit = drawing.clear()
 }

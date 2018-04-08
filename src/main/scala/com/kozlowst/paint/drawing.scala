@@ -31,6 +31,13 @@ object drawing {
     }
   }
 
+  def clear() = {
+    functions.clear()
+    history.clear()
+    width = 0
+    height = 0
+  }
+
   def draw(f:(Int, Int) => Boolean): Unit = draw(f, check = true)
 
   private def draw(f: (Int, Int) => Boolean, check:Boolean):Unit = {

@@ -8,8 +8,10 @@ object Main {
   def main(args: Array[String]): Unit = {
     if (args.nonEmpty) {
       args.head match {
-        case "demo1" => demo()
-        case "demo2" => demo2()
+        case "demo" => {
+          demo()
+          demo2()
+        }
         case _ => println("support only for demo1 or demo2 params")
       }
     } else {
@@ -65,10 +67,11 @@ object Main {
     case _ => None
   }
 
-  def getCodeAndArgs(s:String):Option[(String, Array[String])] = command(tokenize(s))
-
-  private def tokenize(s: String):Array[String] =
-    s.trim.replaceAll("\\s+", " ").split(" ")
+  def getCodeAndArgs(s:String):Option[(String, Array[String])] ={
+    val tokens = s.trim.replaceAll("\\s+", " ").split(" ")
+    if (tokens.isEmpty || tokens.size == 1 && (tokens.head.isEmpty || tokens.head.equals(" "))) None
+    else command(tokens)
+  }
 
   private def command(items:Array[String]):Option[(String, Array[String])] =
     if (items.length == 0) None
@@ -78,7 +81,12 @@ object Main {
 
   private def getP(p1:Int, p2:Int, a:Array[String]): (Int, Int) = (getInt(p1, a), getInt(p2, a))
 
+
+  /**
+    * Demo
+    */
   private def demo(): Unit = {
+    println("\nDEMO-1")
     executeDemo(List(
       "C 30 14",
       "L 0 7 15 0",
@@ -90,6 +98,8 @@ object Main {
   }
 
   private def demo2(): Unit = {
+    publishCommand("N")
+    println("\nDEMO-2")
     executeDemo(List(
       "C 20 20",
       "T 0 10 20 10 10 0",
@@ -99,9 +109,14 @@ object Main {
 
   private def executeDemo(commands:List[String]): Unit = {
     commands.foreach(x => {
-      val cmd = getCodeAndArgs(x).get
-      process(getCommand(cmd._1, cmd._2))
+      println(s" [*] Execute command: $x")
+      publishCommand(x)
     })
+  }
+
+  private def publishCommand(s:String): Unit = {
+    val cmd = getCodeAndArgs(s).get
+    process(getCommand(cmd._1, cmd._2))
   }
 
 }

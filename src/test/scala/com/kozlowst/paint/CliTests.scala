@@ -15,8 +15,14 @@ class CliTests extends FlatSpec {
     assert(params.apply(1).toInt === 5)
   }
 
-  "A command C is missing one param" should " NOT be parsed" in {
-    assert(Main.getCodeAndArgs("C 3").isEmpty)
+  "Empty command" should "be parsed to None" in {
+    val cmd = Main.getCodeAndArgs("")
+    assert(cmd.isEmpty)
+  }
+
+  "Whitespaces" should "be parsed to None" in {
+    val cmd = Main.getCodeAndArgs("  \t  ")
+    assert(cmd.isEmpty)
   }
 
 }
