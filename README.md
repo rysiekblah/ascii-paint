@@ -15,7 +15,7 @@ ascii-paint includes 4 components
 * T x1 y1 x2 y2 x3 y3 - draws triangle where P1 is a point most on left, P2 is the upper one, and P3 the lower one.
 * Z - reverts last drowing
 * W - redo last revert
-* N - new screan
+* N - new screen
 
 # build and run
 ## build
